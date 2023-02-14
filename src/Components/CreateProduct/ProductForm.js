@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-function ProductForm() {
+function ProductForm(props) {
   let [pName, setName] = useState("");
   let [pPrice, setPrice] = useState("");
   let [pDesc, setDesc] = useState("");
-  let [pAvailability, setAvailability] = useState("");
+  let [pAvailability, setAvailability] = useState(false);
   let [pImage, setImage] = useState("");
 
   function nameInputHandler(e) {
@@ -30,15 +30,20 @@ function ProductForm() {
   function createProductEventHandler(e) {
     e.preventDefault();
     let product = {
-      pID: 1,
       pName: pName,
       desc: pDesc,
       isAvailable: Boolean(pAvailability),
       image: pImage,
       price: Number(pPrice),
     };
+    setName("");
+    setDesc("");
+    setImage("");
+    setPrice("");
+    setAvailability(false);
 
-    console.log(product);
+    //console.log(product);
+    props.createProduct(product);
   }
 
   return (
@@ -50,6 +55,7 @@ function ProductForm() {
           className="form-control"
           id="name"
           placeholder="Product Name"
+          value={pName}
           onChange={nameInputHandler}
         />
       </div>
@@ -62,6 +68,7 @@ function ProductForm() {
           className="form-control"
           id="price"
           placeholder="Product Price"
+          value={pPrice}
           onChange={priceInputHandler}
         />
       </div>
@@ -73,6 +80,7 @@ function ProductForm() {
           className="form-control"
           id="description"
           placeholder="Product Description"
+          value={pDesc}
           onChange={descInputHandler}
         />
       </div>
@@ -83,6 +91,7 @@ function ProductForm() {
           type="checkbox"
           role="switch"
           id="isAvailable"
+          checked={pAvailability}
           onChange={availabilityInputHandler}
         />
         <label className="form-check-label" htmlFor="isAvailable">
@@ -96,6 +105,7 @@ function ProductForm() {
           type="file"
           className="form-control"
           id="select-image"
+          value={pImage}
           onChange={imageInputHandler}
         />
       </div>

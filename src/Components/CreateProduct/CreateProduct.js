@@ -1,20 +1,21 @@
 import React from "react";
 import ProductForm from "./ProductForm";
 
-function CreateProduct() {
+function CreateProduct(props) {
+  function onCreateProduct(product) {
+    //console.log(product)
+    props.createProduct(product);
+  }
   return (
-    <div className="row">
-      <div
-        className="col-lg-8 mx-auto"
-        style={{
-          backgroundColor: "white",
-          padding: "10px 20px",
-          marginBottom: 20,
-        }}
-      >
-        <div>
-          <ProductForm></ProductForm>
-        </div>
+    <div
+      style={{
+        backgroundColor: "white",
+        padding: "10px 20px",
+        borderRadius: "1rem",
+      }}
+    >
+      <div>
+        <ProductForm createProduct={onCreateProduct}></ProductForm>
       </div>
     </div>
   );
